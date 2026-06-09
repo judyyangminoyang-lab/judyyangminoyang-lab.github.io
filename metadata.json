@@ -1,0 +1,8 @@
+{
+  "name": "Remix: 中大健身房人數監測系統",
+  "description": "中大健身房即時人數監測系統，提供即時人數上限警告、人流趨勢分析、熱區地圖擁擠度、故障器材管理、以及 AI 智慧時段建議與未來人數預測。",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

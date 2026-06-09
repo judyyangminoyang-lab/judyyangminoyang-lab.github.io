@@ -1,0 +1,45 @@
+{
+  "entities": {
+    "GymState": {
+      "title": "GymState",
+      "description": "The real-time operational state of the NCU Gym, including occupancy, region levels, announcements, equipment status, student feedback, and historical logs.",
+      "type": "object",
+      "properties": {
+        "currentOccupancy": { "type": "number", "description": "Current head-count inside the gym" },
+        "maxLimit": { "type": "number", "description": "Maximum capacity limit" },
+        "weather": { "type": "object", "description": "Weather info block" },
+        "lastUpdateTime": { "type": "string", "description": "Format HH:mm:ss" },
+        "regions": { "type": "array", "description": "Lists of regions and usage rates" },
+        "announcements": { "type": "array", "description": "Chronological announcements" },
+        "equipments": { "type": "array", "description": "Register of equipment damage and service records" },
+        "logs": { "type": "array", "description": "Audit trails for adjustments performed" },
+        "hourlyHistory": { "type": "array", "description": "Today's occupancy hours" },
+        "yesterdayHourlyHistory": { "type": "array", "description": "Yesterday's occupancy hours" },
+        "feedbacks": { "type": "array", "description": "User queries, suggestions, and replies" }
+      },
+      "required": ["currentOccupancy", "maxLimit", "regions", "announcements", "equipments", "logs", "feedbacks"]
+    },
+    "StaffMember": {
+      "title": "StaffMember",
+      "description": "An authorized staff member or service desk worker with administrative/operations panel permissions.",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "description": "The authorized Google account email address (lowercase)" },
+        "role": { "type": "string", "enum": ["staff"], "description": "User clearance label" },
+        "assignedBy": { "type": "string", "description": "Email of the admin who assigned them" },
+        "assignedAt": { "type": "string", "description": "ISO timestamp of authorization" }
+      },
+      "required": ["email", "role"]
+    }
+  },
+  "firestore": {
+    "/config/gymState": {
+      "schema": "GymState",
+      "description": "Global singleton document managing the NCU Gym operative stats."
+    },
+    "/staff_members/{email}": {
+      "schema": "StaffMember",
+      "description": "Individual access records mapped by lowercase email addresses."
+    }
+  }
+}
